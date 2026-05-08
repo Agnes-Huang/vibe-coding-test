@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高校选课管理系统</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<main class="container">
+    <h1>高校选课管理系统 - 学生选课基础处理工具</h1>
+
+    <section class="card">
+        <h2>CSV 数据批量导入</h2>
+        <p class="hint">每行格式：学生ID,课程ID,课程名称,课程类型。课程类型可选（公共课/专业课/选修课）。</p>
+        <textarea id="csvText" rows="8" placeholder="S000001,C000001,Java程序设计,专业课&#10;S000002,C000003,计算机网络,公共课"></textarea>
+        <button id="importBtn" type="button">导入并处理</button>
+    </section>
+
+    <section class="card">
+        <h2>选课检索</h2>
+        <div class="search-row">
+            <input id="keyword" type="text" placeholder="输入学生ID/课程ID/课程名称/课程类型">
+            <button id="searchBtn" type="button">检索</button>
+            <button id="resetBtn" type="button">重置</button>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>处理结果</h2>
+        <p id="statusMsg" class="status"></p>
+        <p id="perfMsg" class="perf"></p>
+        <div id="resultContainer"></div>
+    </section>
+</main>
+<script src="/js/app.js"></script>
+</body>
+</html>
