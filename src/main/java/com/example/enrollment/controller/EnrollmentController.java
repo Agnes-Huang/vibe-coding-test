@@ -40,11 +40,12 @@ public class EnrollmentController {
     @PostMapping("/import")
     public ResponseEntity<EnrollResponse> importCsv(@Valid @RequestBody ImportRequest request) {
         long start = System.nanoTime();
-        List<EnrollRecord> records = enrollmentService.importFromCsvText(request.getCsvText());
+        EnrollmentService.ImportResult importResult = enrollmentService.importFromCsvText(request.getCsvText());
+        List<EnrollRecord> records = importResult.getRecords();
         enrollmentService.printEnrollments(records);
         Map<String, List<EnrollRecord>> grouped = enrollmentService.groupByCourseType(records);
         long elapsedMs = (System.nanoTime() - start) / 1_000_000;
-        return ResponseEntity.ok(new EnrollResponse(records, grouped, "导入并处理成功", elapsedMs));
+        return ResponseEntity.ok(new EnrollResponse(records, grouped, importResult.getMessage(), elapsedMs));
     }
 
     @GetMapping("/search")

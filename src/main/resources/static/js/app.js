@@ -26,8 +26,8 @@ async function importCsv() {
         renderResponse(data);
 
         if (response.ok) {
-            const count = (data.records || []).length;
-            alert(`录入成功，当前共 ${count} 条选课记录。`);
+            const fallback = `录入成功，当前共 ${(data.records || []).length} 条选课记录。`;
+            alert(data.message || fallback);
         } else {
             alert("导入失败，请检查CSV格式后重试。");
         }

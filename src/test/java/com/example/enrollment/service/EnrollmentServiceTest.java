@@ -65,4 +65,18 @@ class EnrollmentServiceTest {
         Assertions.assertEquals(1, result.size());
         Assertions.assertEquals("C000161", result.get(0).getCourseId());
     }
+
+    @Test
+    void shouldRejectCourseIdConflictWithDifferentCourseName() {
+        String input = String.join("\n",
+                "S001245,C000888,高等数学,公共课",
+                "S001246,C000888,线性代数,公共课"
+        );
+        EnrollmentService.ImportResult importResult = enrollmentService.importFromCsvText(input);
+        List<EnrollRecord> result = enrollmentService.search("C000888");
+
+        Assertions.assertEquals(1, result.size());
+        Assertions.assertEquals("高等数学", result.get(0).getCourseName());
+        Assertions.assertTrue(importResult.getMessage().contains("1 行因课程ID与既有课程信息不一致被跳过"));
+    }
 }
