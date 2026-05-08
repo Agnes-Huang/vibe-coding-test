@@ -5,14 +5,38 @@ async function fetchAll() {
 }
 
 async function importCsv() {
-    const csvText = document.getElementById("csvText").value;
-    const response = await fetch("/enrollments/import", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ csvText })
-    });
-    const data = await response.json();
-    renderResponse(data);
+    const csvText = document.getElementById("csvText").value.trim();
+    const importBtn = document.getElementById("importBtn");
+
+    if (!csvText) {
+        alert("请输入CSV内容后再导入。");
+        return;
+    }
+
+    importBtn.disabled = true;
+    importBtn.textContent = "导入中...";
+
+    try {
+        const response = await fetch("/enrollments/import", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ csvText })
+        });
+        const data = await response.json();
+        renderResponse(data);
+
+        if (response.ok) {
+            const count = (data.records || []).length;
+            alert(`录入成功，当前共 ${count} 条选课记录。`);
+        } else {
+            alert("导入失败，请检查CSV格式后重试。");
+        }
+    } catch (error) {
+        alert("导入失败：网络异常或服务未启动。");
+    } finally {
+        importBtn.disabled = false;
+        importBtn.textContent = "导入并处理";
+    }
 }
 
 async function searchRecords() {

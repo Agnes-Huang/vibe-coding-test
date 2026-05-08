@@ -75,7 +75,8 @@ public class EnrollmentService {
             if (line == null || line.isBlank()) {
                 continue;
             }
-            String[] parts = line.split("\\s*,\\s*");
+            String normalizedLine = normalizeInputLine(line);
+            String[] parts = normalizedLine.split("\\s*,\\s*");
             if (parts.length < 3) {
                 continue;
             }
@@ -96,6 +97,25 @@ public class EnrollmentService {
         storage.clear();
         storage.addAll(processed);
         return processed;
+    }
+
+    /**
+     * 兼容两种输入：
+     * 1) 标准CSV：S000001,C000001,Java程序设计,专业课
+     * 2) 标签格式：学生ID：S000001，课程ID：C000001，课程名称：Java程序设计，课程类型：专业课
+     */
+    private String normalizeInputLine(String line) {
+        return line.trim()
+                .replace("，", ",")
+                .replace("；", ";")
+                .replace("学生ID：", "")
+                .replace("学生ID:", "")
+                .replace("课程ID：", "")
+                .replace("课程ID:", "")
+                .replace("课程名称：", "")
+                .replace("课程名称:", "")
+                .replace("课程类型：", "")
+                .replace("课程类型:", "");
     }
 
     public List<EnrollRecord> getAllProcessed() {

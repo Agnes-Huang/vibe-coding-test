@@ -55,4 +55,14 @@ class EnrollmentServiceTest {
         Assertions.assertFalse(result.isEmpty());
         Assertions.assertTrue(elapsedMs <= 1000, "检索耗时超过1秒，实际：" + elapsedMs + "ms");
     }
+
+    @Test
+    void shouldSupportLabeledChineseInputFormat() {
+        String input = "学生ID：S001244，课程ID：C000161，课程名称：数学";
+        enrollmentService.importFromCsvText(input);
+
+        List<EnrollRecord> result = enrollmentService.search("S001244");
+        Assertions.assertEquals(1, result.size());
+        Assertions.assertEquals("C000161", result.get(0).getCourseId());
+    }
 }
