@@ -1,6 +1,6 @@
 # SQL 编程题答案
 
-## 题目1：统计每门课程选课人数（GROUP BY）
+## 题目1：统计每门课程选课人数 - GROUP BY
 
 ```sql
 SELECT
@@ -17,7 +17,7 @@ ORDER BY enroll_count DESC;
 - 使用 `GROUP BY` 对课程维度聚合。
 - `LEFT JOIN` 可以保留无人选课课程（`enroll_count = 0`）。
 
-## 题目2：统计选课人数超过50的专业课（GROUP BY + HAVING）
+## 题目2：统计选课人数超过50的专业课 - GROUP BY + HAVING
 
 ```sql
 SELECT

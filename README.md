@@ -1,4 +1,4 @@
-# 高校选课管理系统（SpringBoot 3.x）
+# 高校选课管理系统 - SpringBoot 3.x
 
 本项目用于完成“高校选课管理系统 - 学生选课基础处理工具”综合题，包含：
 - A：Java 基础处理（去重、排序、格式化输出）
@@ -23,7 +23,7 @@ mvn spring-boot:run
 ## 2. 项目结构
 
 - `src/main/java/com/example/enrollment/core/BasicEnrollmentProcessor.java`  
-  第一题基础处理工具（可独立运行）。
+  第一题基础处理工具，可独立运行。
 - `src/main/java/com/example/enrollment/controller/EnrollmentController.java`  
   接口层：导入、查询、检索。
 - `src/main/java/com/example/enrollment/service/EnrollmentService.java`  
@@ -41,7 +41,7 @@ mvn spring-boot:run
 - `docs/design-analysis.md`  
   数据模型/ER图/并发/索引设计分析。
 
-## 3. 功能说明（对应题目要求）
+## 3. 功能说明
 
 ### A 部分：去重、排序、输出
 - 去重规则：`studentId + courseId` 完全一致视为重复。
@@ -63,12 +63,12 @@ mvn spring-boot:run
 
 见 `docs/design-analysis.md`。
 
-## 6. AI 工具说明（作业要求）
+## 6. AI 工具说明
 
 ### 使用的 AI 编程工具
 - ChatGPT（GPT-5/Codex 类模型）
 
-### 给 AI 的完整提示词（可复用）
+### 给 AI 的完整提示词
 
 ```text
 请基于 SpringBoot 3.x 生成一个“高校选课管理系统 - 学生选课基础处理工具”示例项目，要求如下：
@@ -79,7 +79,7 @@ mvn spring-boot:run
    - 增加选课分类：课程类型包括公共课、专业课、选修课，支持手动标注或按课程名称自动识别；
    - 增加选课检索：支持按学生ID、课程ID、课程名称、课程类型四种关键词检索；
    - 检索无结果时返回“无匹配选课记录”。
-3) 页面要求（简单即可）：
+3) 页面要求：
    - 仅一个页面；
    - 提供一个文本框用于输入多行 CSV（每行 studentId,courseId,courseName,courseType）并批量导入；
    - 导入后展示处理结果；
@@ -100,7 +100,7 @@ mvn spring-boot:run
 - 分层代码初版（Entity、Service、Controller）。
 - 前端页面初版（HTML/CSS/JS）。
 
-#### 人工修改优化（本次实现）
+#### 人工修改优化
 - 增加 `BasicEnrollmentProcessor`，满足第一题“独立Java处理工具”要求。
 - 调整 CSV 解析，自动忽略空行/异常行，提升鲁棒性。
 - 兼容“标签格式录入”（如 `学生ID：S001244，课程ID：C000161，课程名称：数学`）。
@@ -111,6 +111,11 @@ mvn spring-boot:run
 - 调整系统初始样例数据为题目示例（`Java程序设计`、`计算机网络`）以贴合作业场景。
 - 增加处理耗时回显，便于性能验收。
 - 增加单元测试覆盖去重排序和 1000+ 记录检索时延。
+
+### AI 使用思路
+- 先由 AI 生成 SpringBoot 分层骨架和基础页面，快速搭建可运行版本。
+- 再由人工按业务细节做二次优化，重点完善导入交互、数据校验、冲突处理和提示文案。
+- 最后结合单元测试和接口联调，确保功能、性能和题目要求一致。
 
 ## 7. 性能说明
 
